@@ -63,9 +63,11 @@ df['dia_da_semana'] = df.apply(preencher_dia_da_semana, axis=1)
 # Agora aplicar o map para converter texto para inteiro
 df['dia_da_semana'] = df['dia_da_semana'].map(dias_semana)
 
-df['dia_da_semana'].dropna(inplace=True)
-# Converter para inteiro, agora sem nulos
+df = df[df['dia_da_semana'].notna()]
+
+# Agora pode converter para int sem erro
 df['dia_da_semana'] = df['dia_da_semana'].astype(int)
+
 
 
 # Em Promoção
