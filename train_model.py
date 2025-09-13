@@ -45,27 +45,25 @@ df['dia_da_semana'] = df.apply(preencher_dia_da_semana, axis=1)
 df['vendas'] = df['vendas'].astype(int)
 
 # Em Promocao -> False 0 | True 1
-df['em_promocao'] = df['em_promocao'].astype(int)
+#df['em_promocao'] = df['em_promocao'].astype(int)
+df['em_promocao'].dropna(inplace=True)
 
 # Feriado Nacional -> False 0 | True 1
 df['feriado_nacional'] = df['feriado_nacional'].astype(int)
 
-# Dias da Semana
-dias_semana = {
-    'segunda-feira': 0,
-    'terca-feira': 1,
-    'quarta-feira': 2,
-    'quinta-feira': 3,
-    'sexta-feira': 4,
-    'sabado': 5,
-    'domingo': 6
-}
+# Preencher nulos baseando-se no valor do dia da semana da data
+def preencher_dia_da_semana(row):
+    if pd.isna(row['dia_da_semana']):
+        return dias_semana[row['data'].weekday()]
+    else:
+        return row['dia_da_semana']
 
-def transformar_dias(col):
-    return col.map(dias_semana)
+df['dia_da_semana'] = df.apply(preencher_dia_da_semana, axis=1)
 
-df['dia_da_semana'] = transformar_dias(df['dia_da_semana'])
+# Agora aplicar o map para converter texto para inteiro
+df['dia_da_semana'] = df['dia_da_semana'].map(dias_semana)
 
+# Converter para inteiro, agora sem nulos
 df['dia_da_semana'] = df['dia_da_semana'].astype(int)
 
 
