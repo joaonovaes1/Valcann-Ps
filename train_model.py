@@ -81,6 +81,7 @@ def imputar_em_promocao(val):
         return val
 
 df['em_promocao'] = df['em_promocao'].apply(imputar_em_promocao)
+df['em_promocao'] = df['em_promocao'].astype(int)
 
 df.drop_duplicates(inplace=True)
 
