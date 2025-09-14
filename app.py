@@ -22,7 +22,7 @@ def read_rmse():
     try:
         # Aqui você deve carregar o DataFrame 'df' antes
         # Exemplo: se estiver em arquivo CSV, ajuste o caminho
-        df = pd.read_csv('seu_arquivo.csv')  # ajuste o nome/caminho do arquivo
+        df = pd.read_csv('C:\\Users\\marce\\OneDrive\\Dokumenti\\GitHub\\psValcann\\Valcann-Ps\\data\\vendas_produto_alfa.csv') 
 
         features = ['dia_da_semana', 'em_promocao', 'feriado_nacional', 'Fds', 'Dia_de_Semana']
         target = 'vendas'
@@ -49,7 +49,6 @@ def read_rmse():
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 
 
 
