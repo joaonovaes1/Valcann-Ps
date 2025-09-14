@@ -25,3 +25,9 @@ jobs:
 
     - name: Rodar treinamento do modelo
       run: python train_model.py
+
+    - name: Salvar modelo como artefato
+      uses: actions/upload-artifact@v3
+      with:
+        name: modelo-regressao
+        path: linear_model.pkl
