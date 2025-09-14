@@ -1,0 +1,8 @@
+*.ipynb
+data/
+tests/
+docs/
+*.csv
+*.log
+__pycache__/
+*.pyc
