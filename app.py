@@ -3,7 +3,7 @@ from fastapi import FastAPI, HTTPException
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score
 
 app = FastAPI()
 
@@ -97,8 +97,11 @@ def read_rmse():
 
         y_pred = model.predict(X_test)
         rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-
-        return {"RMSE": round(rmse, 2)}
+        r2 = r2_score(y_test, y_pred)
+        
+        return {"RMSE": round(rmse, 2),
+               "R2": round(r2, 4)
+               }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
