@@ -21,7 +21,7 @@ app = FastAPI()
 @app.get("/")
 def read_rmse():
     try:
-        df = pd.read_csv('data/vendas_produto_alfa.csv')
+        df = pd.read_csv('./data/vendas_produto_alfa.csv')
         return {"message": "Arquivo lido com sucesso", "columns": list(df.columns)}
     except Exception as e:
         return {"error": str(e)}
