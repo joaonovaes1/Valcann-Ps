@@ -20,9 +20,7 @@ app = FastAPI()
 @app.get("/")
 def read_rmse():
     try:
-        # Aqui você deve carregar o DataFrame 'df' antes
-        # Exemplo: se estiver em arquivo CSV, ajuste o caminho
-        df = pd.read_csv('C:\\Users\\marce\\OneDrive\\Dokumenti\\GitHub\\psValcann\\Valcann-Ps\\data\\vendas_produto_alfa.csv') 
+        df = pd.read_csv('.\\data\\vendas_produto_alfa.csv') 
 
         features = ['dia_da_semana', 'em_promocao', 'feriado_nacional', 'Fds', 'Dia_de_Semana']
         target = 'vendas'
@@ -37,7 +35,7 @@ def read_rmse():
         y_test = test_df[target]
 
         if X_train.empty or y_train.empty:
-            return {"error": "Dados de treino vazios após limpeza. Verifique os dados e pré-processamento."}
+            return {"error": "Dados de treino vazios após limpeza."}
 
         model = LinearRegression()
         model.fit(X_train, y_train)
