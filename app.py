@@ -5,10 +5,8 @@ import numpy as np
 
 app = FastAPI()
 
-# Carrega o modelo na inicialização da API
 model = joblib.load("linear_model.pkl")
 
-# Define o formato esperado dos dados para predição
 class PredictRequest(BaseModel):
     features: list[float]
 
@@ -17,7 +15,7 @@ from sklearn.metrics import mean_squared_error
 
 app = FastAPI()
 
-@app.post("/")
+@app.get("/")
 def read_rmse():
     try:
         df = pd.read_csv('.\\data\\vendas_produto_alfa.csv') 
