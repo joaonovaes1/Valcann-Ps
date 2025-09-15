@@ -26,6 +26,12 @@ def read_rmse():
         print(f">>> Tentando ler arquivo: {csv_path}")
         df = pd.read_csv(csv_path)
 
+
+        df['Mês'] = df['data'].dt.month
+        df['Fds'] = (df['dia_da_semana'] >= 5).astype(int)
+        df['Dia de Semana'] = (df['dia_da_semana'] <= 4).astype(int)
+        df.drop_duplicates(inplace=True)
+        
         features = ['dia_da_semana', 'em_promocao', 'feriado_nacional', 'Fds', 'Dia_de_Semana']
         target = 'vendas'
 
