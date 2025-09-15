@@ -26,7 +26,40 @@ def read_rmse():
         print(f">>> Tentando ler arquivo: {csv_path}")
         df = pd.read_csv(csv_path)
 
+        # Data
+        df = df.loc[~df['data'].isna()]
+        df['data'] = pd.to_datetime(df['data'])
+        # Vendas
+        df['vendas'] = df['vendas'].fillna(
+            df.groupby('dia_da_semana')['vendas'].transform('mean')
+        )
+        # Vendas -> INT
+        df['vendas'] = df['vendas'].astype(int)
 
+        # Em Promocao -> False 0 | True 1
+        df['em_promocao'] = df['em_promocao'].astype(int)
+        
+        # Feriado Nacional -> False 0 | True 1
+        df['feriado_nacional'] = df['feriado_nacional'].astype(int)
+        
+        # Dias da Semana
+        dias_semana = {
+            'segunda-feira': 0,
+            'terca-feira': 1,
+            'quarta-feira': 2,
+            'quinta-feira': 3,
+            'sexta-feira': 4,
+            'sabado': 5,
+            'domingo': 6
+        }
+        
+        def transformar_dias(col):
+            return col.map(dias_semana)
+
+        df['dia_da_semana'] = transformar_dias(df['dia_da_semana'])
+        
+        df['dia_da_semana'] = df['dia_da_semana'].astype(int)
+        
         df['Mês'] = df['data'].dt.month
         df['Fds'] = (df['dia_da_semana'] >= 5).astype(int)
         df['Dia de Semana'] = (df['dia_da_semana'] <= 4).astype(int)
