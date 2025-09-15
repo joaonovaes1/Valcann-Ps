@@ -1,5 +1,4 @@
 *.ipynb
-data/
 tests/
 docs/
 *.csv
