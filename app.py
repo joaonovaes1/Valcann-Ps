@@ -19,6 +19,9 @@ from sklearn.metrics import mean_squared_error
 app = FastAPI()
 
 @app.get("/")
-@app.get("/")
 def read_rmse():
-    return {"message": "API raiz funcionando"}
+    try:
+        df = pd.read_csv('data/vendas_produto_alfa.csv')
+        return {"message": "Arquivo lido com sucesso", "columns": list(df.columns)}
+    except Exception as e:
+        return {"error": str(e)}
