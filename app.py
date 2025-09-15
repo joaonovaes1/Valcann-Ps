@@ -21,7 +21,10 @@ app = FastAPI()
 @app.get("/")
 def read_rmse():
     try:
-        df = pd.read_csv('./data/vendas_produto_alfa.csv')
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        csv_path = os.path.join(base_dir, 'data', 'vendas_produto_alfa.csv')
+        print(f">>> Tentando ler arquivo: {csv_path}")
+        df = pd.read_csv(csv_path)
         return {"message": "Arquivo lido com sucesso", "columns": list(df.columns)}
     except Exception as e:
         return {"error": str(e)}
