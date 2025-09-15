@@ -17,7 +17,7 @@ from sklearn.metrics import mean_squared_error
 
 app = FastAPI()
 
-@app.get("/")
+@app.post("/")
 def read_rmse():
     try:
         df = pd.read_csv('.\\data\\vendas_produto_alfa.csv') 
