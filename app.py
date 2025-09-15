@@ -5,7 +5,18 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 
+
+
 app = FastAPI()
+
+
+
+try:
+    model = joblib.load(model_path)
+    print(">>> Modelo carregado com sucesso")
+except Exception as e:
+    print(f">>> Falha ao carregar modelo: {e}")
+    model = None
 
 @app.get("/")
 def read_rmse():
