@@ -18,7 +18,7 @@ app = FastAPI()
 @app.get("/")
 def read_rmse():
     try:
-        df = pd.read_csv('.\\data\\vendas_produto_alfa.csv') 
+        df = pd.read_csv('data/vendas_produto_alfa.csv')
 
         features = ['dia_da_semana', 'em_promocao', 'feriado_nacional', 'Fds', 'Dia_de_Semana']
         target = 'vendas'
