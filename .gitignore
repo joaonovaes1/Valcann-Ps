@@ -2,7 +2,6 @@
 *.ipynb
 tests/
 docs/
-*.csv
 
 
 __pycache__/
