@@ -29,13 +29,13 @@ def read_rmse():
         # Data
         df = df.loc[~df['data'].isna()]
         df['data'] = pd.to_datetime(df['data'])
-        # Vendas
-        df['vendas'] = df['vendas'].fillna(
-            df.groupby('dia_da_semana')['vendas'].transform('mean')
-        )
-        # Vendas -> INT
+        # Preenche NaNs com a média por dia_da_semana
+        df['vendas'] = df['vendas'].fillna(df.groupby('dia_da_semana')['vendas'].transform('mean'))
+        # Remove eventuais NaNs restantes para evitar erro na conversão
+        df = df.dropna(subset=['vendas'])
+        # Agora converte para inteiro
+        print("Quantos NaNs ainda existem em 'vendas'? ", df['vendas'].isna().sum())
         df['vendas'] = df['vendas'].astype(int)
-
         # Em Promocao -> False 0 | True 1
         df['em_promocao'] = df['em_promocao'].astype(int)
         
